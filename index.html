@@ -83,6 +83,22 @@
       border-bottom-color: #1a1a18;
     }
 
+    .teaser-img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.lab-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a9890;
+  margin-bottom: 0.3rem;
+}
+
     /* ── Tab panels ── */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
@@ -292,9 +308,10 @@
 <header>
   <div class="venue">Master's Thesis · Pusan National University · 2026</div>
   <h1>Design and Implementation of a Multimodal Adaptive Guidance System for Extended Reality</h1>
-  <p class="authors">Alsu Raianova</p>
+  <p class="authors">Author: Alsu Raianova</p>
   <p class="authors">Advisor: Prof. Myungho Lee</p>
   <p class="affil">Department of Information Convergence Engineering, Pusan National University</p>
+  <p class="lab-name" style="margin-top: 0.9rem;">eXtended Reality Lab</p>
 </header>
 
 <!-- ── Tab navigation ── -->
@@ -312,10 +329,16 @@
 <!-- ════════════════ OVERVIEW ════════════════ -->
 <div class="tab-panel active" id="tab-overview">
 
+  <img
+  src="thesis_title.jpg"
+  alt="Adaptive MR guidance system in a laboratory setting"
+  class="teaser-img"
+/>
+
   <section>
     <h2>Abstract</h2>
     <p>Mixed reality (MR) guidance systems predominantly rely on static instructions, failing to account for the cognitive and behavioral variability of real-world learners. This thesis presents a multimodal adaptive guidance system for extended reality, designed for procedural laboratory training on the Microsoft HoloLens 2 platform.</p>
-    <p>The proposed system integrates structured task representation, real-time semantic step tracking, multimodal user state estimation, and LLM-based adaptive guidance into a unified closed-loop architecture. Task progress is modeled as a directed acyclic graph (DAG) generated from natural-language protocols using a large language model, enabling automatic and flexible task structuring, and is tracked in real time through a multimodal action recognition pipeline leveraging sensor data derived from gaze, hand, and head interactions. These multimodal signals are used to estimate the user's cognitive load and affective state, enabling the guidance module to dynamically adapt feedback in terms of granularity, tone, and content.</p>
+    <p>The proposed system integrates structured task representation, real-time semantic step tracking, multimodal user state estimation, and LLM-based adaptive guidance into a unified closed-loop architecture. Task progress is modeled as a directed acyclic graph (DAG) generated from natural-language protocols using a large language model, enabling automatic and flexible task structuring, and is tracked in real time through a multimodal action recognition pipeline leveraging sensor data derived from gaze, hand, and head interactions. These multimodal signals are used to estimate users procedural difficulty state, enabling the guidance module to dynamically adapt feedback in terms of granularity, tone, and content.</p>
     <p>Evaluation of the guidance generation component shows that incorporating real-time user state signals alongside task context improves response relevance and reduces hallucination compared to context-only baselines.</p>
     <p>Experimental results demonstrate robust step tracking performance and low-latency system responsiveness, supporting real-time deployment in immersive laboratory settings.</p>
     <p>Overall, this work establishes a practical framework for user state-aware adaptive MR guidance, advancing beyond one-size-fits-all instruction toward personalized learning support.</p>
