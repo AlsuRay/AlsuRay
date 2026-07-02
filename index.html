@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>학위논문 소개 웹페이지 | Alsu Raianova</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+  font-family: 'DM Sans', sans-serif;
+  background: #fafaf8;
+  color: #1a1a18;
+  width: 65%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+  line-height: 1.75;
+}
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid #e0ddd6;
+    }
+
+    .venue {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9a9890;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .authors {
+      font-size: 0.95rem;
+      color: #4a4a48;
+      margin-bottom: 0.4rem;
+    }
+
+    .affil {
+      font-size: 0.85rem;
+      color: #9a9890;
+    }
+
+
+.about-nav {
+  margin-top: 1.8rem;
+}
+
+.goal-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #eef4fb;
+  border: 1px solid #c5d9ef;
+  border-radius: 4px;
+  padding: 1rem 0.8rem;
+  color: #4a6a8a;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.4;
+}
+.goal-pill:hover {
+  background: #ddeaf7;
+  border-color: #5a8fc0;
+  color: #2a4a6a;
+}
+.goal-pill.active {
+  background: #2a6099;
+  border-color: #2a6099;
+  color: #fff;
+}
+.goal-panel {
+  display: none;
+  background: #f4f3f0;
+  border: 1px solid #e0ddd6;
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+}
+.goal-panel.active { display: block; }
+
+.about-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: #1a1a18;
+  color: #fafaf8;
+  border: none;
+  border-radius: 100px;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.about-btn:hover {
+  background: #3a3a38;
+}
+
+.about-btn.active {
+  background: #b8723a;
+  color: #fff;
+}
+
+    /* ── Tab nav ── */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid #e0ddd6;
+      margin-bottom: 3rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9a9890;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.65rem 1.1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: #4a4a48; }
+    .tab-btn.active {
+      color: #1a1a18;
+      border-bottom-color: #1a1a18;
+    }
+
+    .teaser-img {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #e0ddd6;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.lab-name {
+  font-size: 0.85rem;
+  color: #9a9890;
+}
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Publications tab — distinct theme ── */
+#tab-publications {
+  background: #fdf8f3;
+  border: 1px solid #ecd9c3;
+  border-radius: 10px;
+  padding: 2.5rem 2.2rem;
+  margin: -0.5rem 0 1rem;
+}
+
+.pub-list {
+  list-style: none;
+}
+
+.pub-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid #ecd9c3;
+}
+.pub-item:last-child { border-bottom: none; }
+
+.pub-status {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+}
+.pub-status.accepted {
+  background: #e3efe3;
+  color: #3d7a4d;
+}
+.pub-status.review {
+  background: #fbeede;
+  color: #b8723a;
+}
+
+.pub-venue {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c08a52;
+}
+
+.pub-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: #1a1a18;
+}
+
+.pub-meta {
+  font-size: 0.85rem;
+  color: #6a6a68;
+  font-weight: 300;
+}
+
+.pub-links {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.2rem;
+}
+.pub-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: #b8723a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+    /* ── Shared section styles ── */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a9890;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 0.975rem;
+      color: #2a2a28;
+      font-weight: 300;
+      margin-bottom: 0.9rem;
+      text-align: justify;
+    }
+
+    p b { font-weight: 600; }
+
+    .placeholder {
+      background: #f4f3f0;
+      border: 1px dashed #d4d1ca;
+      border-radius: 6px;
+      padding: 2rem 1.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: #b8b5ae;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    /* ── Framework grid ── */
+    .framework-img {
+      width: 100%;
+      border: 1px solid #e0ddd6;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .img-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.99rem;
+      color: #b8b5ae;
+      text-align: center;
+      margin-top: -1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .components {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #e0ddd6;
+      border: 1px solid #e0ddd6;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .comp {
+      background: #fff;
+      padding: 1.2rem 1.4rem;
+    }
+
+    .comp-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: #b8b5ae;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .comp-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .comp-desc {
+      font-size: 0.8rem;
+      color: #6a6a68;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── Results table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+    th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9a9890;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #e0ddd6;
+    }
+    td {
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid #f0ede8;
+      color: #2a2a28;
+      font-weight: 300;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Materials list ── */
+    .materials-list {
+      list-style: none;
+      border: 1px solid #e0ddd6;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .materials-list li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid #f0ede8;
+      font-size: 0.9rem;
+    }
+    .materials-list li:last-child { border-bottom: none; }
+    .mat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: #9a9890;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      min-width: 80px;
+    }
+    .mat-link {
+      color: #1a1a18;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .mat-note {
+      font-size: 0.8rem;
+      color: #9a9890;
+      font-weight: 300;
+    }
+
+    /* ── References ── */
+    .ref-list {
+      list-style: none;
+    }
+    .ref-list li {
+      font-size: 0.875rem;
+      color: #2a2a28;
+      font-weight: 300;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f0ede8;
+      padding-left: 2rem;
+      position: relative;
+    }
+    .ref-list li:last-child { border-bottom: none; }
+    .ref-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: #b8b5ae;
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+    }
+
+    /* ── Video ── */
+    .video-wrap {
+      border: 1px solid #e0ddd6;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .video-wrap iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: block;
+    }
+
+    footer {
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0ddd6;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: #b8b5ae;
+    }
+
+    @media (max-width: 560px) {
+      .components { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="venue">Master's Thesis · Pusan National University · 2026</div>
+  <h1>Design and Implementation of a Multimodal Adaptive Guidance System for Extended Reality</h1>
+  <p class="authors">Author: Alsu Raianova</p>
+  <p class="authors">Advisor: Prof. Myungho Lee</p>
+  <p class="affil">Department of Information Convergence Engineering, Pusan National University</p>
+  <p class="lab-name">eXtended Reality Lab</p>
+
+<!-- ── About button — standalone above tabs ── -->
+<div class="about-nav">
+  <button class="about-btn" data-tab="about">About me</button>
+</div>
+
+</header>
+
+
+<!-- ── Tab navigation ── -->
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" role="tab" aria-selected="true"  data-tab="overview">Overview</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="motivation">Motivation</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="system">System</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="implementation">Implementation</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="userstudy">User Study Design</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="evaluation">Evaluation & Results</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="materials">Materials</button>
+  <button class="tab-btn"        role="tab" aria-selected="false" data-tab="references">References</button>
+</nav>
+
+
+<!-- ════════════════ ABOUT ════════════════ -->
+<div class="tab-panel" id="tab-about">
+
+  <section>
+  <h2>About Me</h2>
+  <div style="display: flex; align-items: center; gap: 1.8rem; margin-bottom: 1rem;">
+    <img 
+      src="me.jpg" 
+      alt="Alsu Raianova" 
+      style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; object-position: center; border: 1px solid #e0ddd6; flex-shrink: 0;"
+    />
+    <p style="margin-bottom: 0;">I am a master's student at Pusan National University, South Korea, working in the eXtended Reality Lab under the supervision of Prof. Myungho Lee. My research focuses on adaptive mixed reality systems that respond to real-time user state — combining multimodal sensing, deep learning, and large language models to make procedural guidance smarter and more human-aware.</p>
+  </div>
+</section>
+
+  <section>
+    <h2>Education</h2>
+    <ul class="materials-list">
+      <li>
+        <span class="mat-label">2024 – 2026</span>
+        <span>M.S. in Information Convergence Engineering · Pusan National University, Korea<br>
+        <span style="font-size:0.82rem; color:#9a9890; font-weight:300;">eXtended Reality Lab · Advisor: Prof. Myungho Lee</span></span>
+      </li>
+      <li>
+        <span class="mat-label">2018 – 2022</span>
+        <span>B.S. in Business Informatics · MGIMO University, Moscow, Russia</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-status review">Under Review</span>
+        <span class="pub-venue">ACM VRST 2026</span>
+        <div class="pub-title">A Real-time Multimodal Adaptive Mixed Reality System for Procedural Task Guidance</div>
+        <div class="pub-meta">A. Raianova and M. Lee · Full Conference Paper</div>
+        <div class="pub-links">
+          <span style="font-family:'DM Mono',monospace; font-size:0.75rem; color:#b8b5ae;">PDF available upon acceptance</span>
+          <a href="papers/vrst.pdf" download target="_blank">PDF</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-status accepted">Accepted &amp; Presented</span>
+        <span class="pub-venue">IEEE VRW 2026</span>
+        <div class="pub-title">Towards Multimodal User State-Aware Adaptive Guidance in MR</div>
+        <div class="pub-meta">A. Raianova and M. Lee, 2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW), Daegu, Korea, Republic of, 2026, pp. 1195–1196, doi: 10.1109/VRW70859.2026.00272</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/VRW70859.2026.00272" target="_blank">DOI</a>
+          <a href="papers/vrw2026_raianova.pdf" download target="_blank">PDF</a>
+          <a href="papers/vrw2026_poster.pdf" download target="_blank">Poster PDF</a>
+          <a href="https://www.youtube.com/watch?v=A0HYoeMklSk" target="_blank">Demo video</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-status accepted">Accepted &amp; Presented</span>
+        <span class="pub-venue">ISMAR-Adjunct 2025</span>
+        <div class="pub-title">Adaptive Learning in Extended Reality: A Survey on Multimodal Interaction and AI-Driven Personalization</div>
+        <div class="pub-meta">A. Raianova and M. Lee, 2025 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct), Daejeon, Korea, Republic of, 2025, pp. 205–210, doi: 10.1109/ISMAR-Adjunct68609.2025.00046</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/ISMAR-Adjunct68609.2025.00046" target="_blank">DOI</a>
+          <a href="papers/ismar2025_raianova.pdf" target="_blank">PDF</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+</div>
+
+
+
+<!-- ════════════════ OVERVIEW ════════════════ -->
+<div class="tab-panel active" id="tab-overview">
+
+  <img
+  src="thesis_title.jpg"
+  alt="Adaptive MR guidance system in a laboratory setting"
+  class="teaser-img"
+/>
+<p class="img-caption">Thesis Teaser Image</p>
+
+  <section>
+    <h2>Abstract</h2>
+    <p>Mixed reality (MR) guidance systems predominantly rely on static instructions, failing to account for the cognitive and behavioral variability of real-world learners. This thesis presents a multimodal adaptive guidance system for extended reality, designed for procedural laboratory training on the Microsoft HoloLens 2 platform.</p>
+    <p>The proposed system integrates structured task representation, real-time semantic step tracking, multimodal user state estimation, and LLM-based adaptive guidance into a unified closed-loop architecture. Task progress is modeled as a directed acyclic graph (DAG) generated from natural-language protocols using a large language model, enabling automatic and flexible task structuring, and is tracked in real time through a multimodal action recognition pipeline leveraging sensor data derived from gaze, hand, and head interactions. These multimodal signals are used to estimate users procedural difficulty state, enabling the guidance module to dynamically adapt feedback in terms of granularity, tone, and content.</p>
+    <p>Evaluation of the guidance generation component shows that incorporating real-time user state signals alongside task context improves response relevance and reduces hallucination compared to context-only baselines.</p>
+    <p>Experimental results demonstrate robust step tracking performance and low-latency system responsiveness, supporting real-time deployment in immersive laboratory settings.</p>
+    <p>Overall, this work establishes a practical framework for user state-aware adaptive MR guidance, advancing beyond one-size-fits-all instruction toward personalized learning support.</p>
+  </section>
+
+  <section>
+    <h2>Keywords</h2>
+    <p><b>Extended Reality, Large Language Models, Adaptive Learning, Multimodal Data, User State Estimation, AI-Driven Personalization</b></p>
+  </section>
+
+</div>
+
+<!-- ════════════════ MOTIVATION ════════════════ -->
+<div class="tab-panel" id="tab-motivation">
+
+  <section>
+    <h2>Problem Statement</h2>
+    <p>Procedural tasks require users to interpret instructions, perform ordered physical actions, monitor their progress, and recover from errors while interacting with real objects. Such tasks are common in laboratory work, technical maintenance, assembly, medical assistance, and everyday skill acquisition. In these settings, mistakes can reduce efficiency, compromise safety, or prevent successful task completion.</p>
+    <p>Conventional instructional materials — paper manuals, videos, and static checklists — provide useful reference information, but do not actively interpret what the user is doing or adapt support when the user deviates from the intended procedure.</p>
+  </section>
+
+  <section>
+    <h2>Why Mixed Reality?</h2>
+    <p>Mixed reality offers a promising platform for procedural guidance because it can spatially align digital instructions with the physical workspace while preserving embodied interaction with real tools and objects. Head-mounted MR devices can capture rich multimodal behavioral signals — including gaze, hand motion, head pose, object detections, and interaction events — making MR well suited for situated, step-by-step procedural assistance.</p>
+    <p>However, moving from static MR instructions to adaptive procedural guidance remains a challenging systems problem. An effective system must not only display the next instruction, but also reason about the current procedural state, interpret whether observed actions are expected or problematic, estimate when the user is experiencing difficulty, and provide assistance without unnecessarily interrupting successful task execution.</p>
+  </section>
+
+  <section>
+    <h2>Limitations of Prior Work</h2>
+    <p>Prior MR and XR guidance systems have demonstrated the value of spatial cues and interactive instructions, but many remain limited to fixed step sequences or interface-level adaptation — they do not reason about whether an observed action is expected, premature, or recoverable within the procedure.</p>
+    <p>Egocentric action recognition methods can identify observed activities, but procedural assistance requires interpreting those observations with respect to task dependencies, completion conditions, and possible recovery paths. User-state adaptation introduces a further challenge: latent constructs such as cognitive load or affect are difficult to infer robustly in real-world MR environments.</p>
+  </section>
+
+  <section>
+    <h2>Our Approach</h2>
+    <p>We focus on <b>observable procedural difficulty</b> — estimated from multimodal behavioral signals available during task execution — rather than latent cognitive constructs requiring intrusive sensing. The proposed system integrates semantic procedural task tracking with behaviorally grounded difficulty estimation within a single real-time closed loop on commodity MR hardware, positioning the contribution as a <b>difficulty-aware adaptive procedural assistance framework</b>, evaluated end-to-end over real physical tasks through a controlled user study.</p>
+  </section>
+
+</div>
+
+</div>
+
+<!-- ════════════════ SYSTEM ════════════════ -->
+<div class="tab-panel" id="tab-system">
+
+  <section>
+  <h2>Framework</h2>
+
+  <img src="graphs/final_overwiev.png" alt="High-level system overview" class="framework-img" style="cursor: zoom-in;" onclick="openLightbox('graphs/final_overwiev.png')" />
+  <p class="img-caption">Fig. 1 — High-level system overview</p>
+
+  <div style="border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+  <div style="background: #fff; padding: 1rem;">
+    <div style="height: 500px; overflow: hidden; border-radius: 4px; background: #fff;">
+      <img src="graphs/framework.jpg" alt="Framework architecture" style="width:100%; height:100%; object-fit:contain; display:block; cursor:zoom-in;" onclick="openLightbox('graphs/framework.jpg')" />
+    </div>
+  </div>
+</div>
+<p style="font-family:'DM Mono',monospace; font-size:1rem; color:#b8b5ae; text-align:center; margin: 0.6rem 0 0;">Fig. 2 — System framework architecture</p>
+
+</section>
+
+  <section>
+    <h2>Design Goals</h2>
+
+    <!-- Pill tags -->
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-bottom: 1.5rem;">
+      <button class="goal-pill active" onclick="showGoal(this, 'g1')">
+  <div style="font-size:1.6rem; font-weight:500; margin-bottom:0.3rem;">G1</div>
+  <div>Semantic Tracking</div>
+</button>
+<button class="goal-pill" onclick="showGoal(this, 'g2')">
+  <div style="font-size:1.6rem; font-weight:500; margin-bottom:0.3rem;">G2</div>
+  <div>Non-invasive Sensing</div>
+</button>
+<button class="goal-pill" onclick="showGoal(this, 'g3')">
+  <div style="font-size:1.6rem; font-weight:500; margin-bottom:0.3rem;">G3</div>
+  <div>User State Estimation</div>
+</button>
+<button class="goal-pill" onclick="showGoal(this, 'g4')">
+  <div style="font-size:1.6rem; font-weight:500; margin-bottom:0.3rem;">G4</div>
+  <div>Adaptive Guidance</div>
+</button>
+<button class="goal-pill" onclick="showGoal(this, 'g5')">
+  <div style="font-size:1.6rem; font-weight:500; margin-bottom:0.3rem;">G5</div>
+  <div>Complementary Signals</div>
+</button>
+    </div>
+
+    <!-- Goal panels -->
+    <div id="g1" class="goal-panel active">
+      <div class="comp-num">G1</div>
+      <div class="comp-title">Real-time semantic procedural tracking over physical objects</div>
+      <p style="font-size:0.875rem; color:#4a4a48; font-weight:300; margin-top:0.6rem;">Interactions must be interpreted relative to task dependencies and recovery paths, not labeled as isolated actions. The system uses a DAG-based task representation to reason about expected, premature, repeated, and recoverable actions in real time.</p>
+    </div>
+    <div id="g2" class="goal-panel">
+      <div class="comp-num">G2</div>
+      <div class="comp-title">Non-invasive multimodal sensing</div>
+      <p style="font-size:0.875rem; color:#4a4a48; font-weight:300; margin-top:0.6rem;">The system relies only on gaze, hand, head, and object signals available on commodity MR hardware — no intrusive physiological instrumentation required. All sensing is performed through the HoloLens 2 onboard sensors at 30 Hz.</p>
+    </div>
+    <div id="g3" class="goal-panel">
+      <div class="comp-num">G3</div>
+      <div class="comp-title">Behaviorally grounded user-state estimation</div>
+      <p style="font-size:0.875rem; color:#4a4a48; font-weight:300; margin-top:0.6rem;">Adaptation is driven by observable procedural difficulty inferred from interaction dynamics — rather than latent cognitive or affective state. A BiGRU model pretrained on HoloAssist estimates difficulty from raw multimodal temporal sequences in real time.</p>
+    </div>
+    <div id="g4" class="goal-panel">
+      <div class="comp-num">G4</div>
+      <div class="comp-title">Reactive and proactive adaptive guidance</div>
+      <p style="font-size:0.875rem; color:#4a4a48; font-weight:300; margin-top:0.6rem;">Guidance serves both user-initiated voice queries and system-initiated proactive intervention. LLM output is conditioned on runtime procedural context and estimated difficulty, adapting content, timing, and presentation — intervening only when warranted rather than during successful execution.</p>
+    </div>
+    <div id="g5" class="goal-panel">
+      <div class="comp-num">G5</div>
+      <div class="comp-title">Complementary explicit and implicit adaptation signals</div>
+      <p style="font-size:0.875rem; color:#4a4a48; font-weight:300; margin-top:0.6rem;">Because difficulty estimation remains inherently uncertain, adaptation combines explicit procedural context (step tracker) and implicit behavioral signals (BiGRU difficulty estimate) as complementary inputs. This allows guidance to remain interpretable and degrade gracefully when uncertainty increases.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>System Components</h2>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-num">01</div>
+        <div class="comp-title">DAG-Based Task Representation</div>
+        <div class="comp-desc">Natural-language protocols are converted into directed acyclic graphs via LLM prompting, encoding dependencies, alternative paths, and error severity.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">02</div>
+        <div class="comp-title">Semantic Step Tracking</div>
+        <div class="comp-desc">YOLO object detection combined with MRTK3 interaction events classifies user actions into AMMA-style outcome categories in real time at ~60 ms latency.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">03</div>
+        <div class="comp-title">User State Estimation</div>
+        <div class="comp-desc">Gaze, hand, and head signals logged at 30 Hz feed a BiGRU model pretrained on HoloAssist for real-time procedural difficulty estimation.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">04</div>
+        <div class="comp-title">LLM-Based Adaptive Guidance</div>
+        <div class="comp-desc">A locally hosted Qwen2.5 7B Instruct model receives runtime context — current procedural step, estimated difficulty, recent outcomes, and conversation history — to generate personalized feedback calibrated to the user's procedural state.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════ IMPLEMENTATION ════════════════ -->
+<div class="tab-panel" id="tab-implementation">
+
+  <section>
+    <h2>System Architecture</h2>
+    <p>The system is implemented as a distributed architecture separating lightweight on-device interaction processing from computationally heavier backend inference. The HoloLens 2 client handles real-time sensing, object detection, and user interaction, while a Python backend on a connected PC performs object tracking, step tracking, user-state inference, and adaptive guidance generation.</p>
+    <img src="graphs/system_pipeline.jpg" alt="Closed-loop system pipeline" class="framework-img" style="cursor:zoom-in; max-width: 60%; display:block; margin: 0 auto;" onclick="openLightbox('graphs/system_pipeline.jpg')" />
+    <p class="img-caption" style="margin-top: 1rem;">Fig. 4 — Closed-loop system pipeline: HoloLens 2/Unity client and Python backend communicating over UDP</p>
+  </section>
+
+  <section>
+    <h2>On-Device Layer (HoloLens 2 / Unity)</h2>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-num">01</div>
+        <div class="comp-title">Object Detection</div>
+        <div class="comp-desc">YOLOv10n runs on-device via Unity Sentis. Task-specific detectors were fine-tuned on images captured directly from the HoloLens 2 workspace (mAP@50 = 0.99). 2D detections are projected into world space using sphere casts from the camera origin.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">02</div>
+        <div class="comp-title">Hand–Object Interaction</div>
+        <div class="comp-desc">MRTK3 skeletal joint data is streamed at ~30 Hz. Grab and release are estimated from finger curl, wrist proximity, and gaze-based disambiguation. A HandProxy mechanism maintains continuous object representation during manipulation when visual detection is unreliable.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">03</div>
+        <div class="comp-title">Spatial Anchoring</div>
+        <div class="comp-desc">Newly detected objects remain unanchored while position is estimated. After repeated spatially consistent detections, objects transition to an anchored state and their transform is frozen. Anchored objects are surfaced through lightweight indicators: white when interactable, pink on gaze fixation, green during manipulation.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">04</div>
+        <div class="comp-title">Voice Input</div>
+        <div class="comp-desc">User speech is captured via keyword-triggered recognition on the headset and forwarded to the backend over a dedicated UDP voice channel. System responses are synthesized using Azure Neural text-to-speech and played back through the HoloLens speakers.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Backend Layer (Python / PC)</h2>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-num">05</div>
+        <div class="comp-title">Object Tracker</div>
+        <div class="comp-desc">ByteTrack runs in per-class mode, associating detections across frames using Kalman filtering and IoU matching to return persistent (track_id, class) identities. Stale tracks are reset after prolonged inactivity; fallback uses class-based nearest-neighbor matching.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">06</div>
+        <div class="comp-title">Semantic Action Recognition</div>
+        <div class="comp-desc">An interaction-centric heuristic recognizer infers semantic actions (grab, place, pour, stir, press) from known object identities, spatial relationships, and temporal constraints. Pour requires sustained object tilt beyond ~45°; stir is detected from circular wrist trajectories; press from index-finger poke.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">07</div>
+        <div class="comp-title">Step Tracker</div>
+        <div class="comp-desc">Each recognized action is validated against the current DAG state. The tracker maintains active branches, completed steps, dependency-satisfaction state, and a history of invalid transitions. Actions are classified into six outcome categories: expected, premature, repeat, harmless, incorrect-recoverable, and incorrect-unrecoverable.</div>
+      </div>
+      <div class="comp">
+        <div class="comp-num">08</div>
+        <div class="comp-title">User-State Inference</div>
+        <div class="comp-desc">A BiGRU model (two bidirectional GRU layers: 64 and 32 units) processes sliding windows of 30 synchronized multimodal channels. Per-session calibration estimates a participant-specific baseline during a 180s warmup phase; the runtime signal is smoothed with EMA (α = 0.3) and thresholded at the 75th percentile.</div>
+      </div>
+      <div class="comp" style="grid-column: 1 / -1;">
+    <div class="comp-num">09</div>
+    <div class="comp-title">Adaptive Guidance</div>
+    <div class="comp-desc">Qwen2.5 7B Instruct is served locally via Ollama. The guidance coordinator fuses procedural context and difficulty estimate at prompt construction time. Proactive intervention is gated by a 25s cooldown and interaction-state constraints. Critical violations bypass the LLM and trigger immediate corrective feedback.</div>
+  </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>MR Guidance Interface</h2>
+    <p>Guidance is delivered through coordinated verbal and visual channels. Task-relevant objects referenced in guidance are highlighted using a pulsating yellow effect. The runtime panel displays the current procedural step, overall progress, and contextual assistance text, aligning natural-language instructions with spatial object references in the MR environment.</p>
+  </section>
+
+</div>
+
+
+<!-- ════════════════ USER STUDY DESIGN ════════════════ -->
+<div class="tab-panel" id="tab-userstudy">
+
+  <section>
+    <h2>User Study Design</h2>
+    <p>A controlled study was conducted to evaluate whether runtime adaptation improves procedural guidance relative to a non-adaptive baseline, across tasks of differing complexity. Twenty participants (graduate and undergraduate students, aged 20–35, M = 23.7, SD = 3.4) were recruited from the university community.</p>
+
+    <p>The study used a <b>counterbalanced mixed design</b> with two system conditions and two task types. The baseline condition shared the same task graph, semantic tracking pipeline, instructional content, and MR interface as the adaptive system — differing only by disabling adaptive guidance behavior (proactive intervention, user-state-driven adaptation, object highlighting, and spoken delivery). Two task types were used: a <b>Simple</b> task involving familiar objects and straightforward instructions, and a <b>Chemistry-lab</b> task involving specialized laboratory equipment, domain-specific terminology, and a more complex dependency structure.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Group</th>
+          <th>Task 1</th>
+          <th>Task 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Group A</td>
+          <td>Simple / Baseline</td>
+          <td>Chemistry / Adaptive</td>
+        </tr>
+        <tr>
+          <td>Group B</td>
+          <td>Simple / Adaptive</td>
+          <td>Chemistry / Baseline</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem; color:#9a9890; font-weight:300; font-style:italic;">Note. Counterbalanced assignment ensures every task is novel at first exposure, avoiding task-repetition learning confounds.</p>
+  </section>
+
+  <section>
+    <h2>Procedure</h2>
+    <p>After eye-gaze calibration and a tutorial on hand-object interaction and voice interaction, a short calibration phase (180s) established participant-specific baseline values for user-state estimation. Participants then performed the assigned tasks while the system tracked procedural state and logged events, behavioral signals, and interventions. After each condition they completed NASA-TLX and a guidance-quality questionnaire (GQI: clarity, confidence, helpfulness, explanation understandability), and provided qualitative feedback at the end.</p>
+  </section>
+  
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e0ddd6; border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+      <div style="background: #fff; padding: 0.75rem;">
+        <video src="egocentric.mp4" autoplay muted loop playsinline style="width:100%; border-radius:4px; display:block;"></video>
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">Egocentric view</p>
+      </div>
+      <div style="background: #fff; padding: 0.75rem;">
+        <video src="1st person view.mp4" autoplay muted loop playsinline style="width:100%; border-radius:4px; display:block;"></video>
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">3rd person view</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e0ddd6; border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem; margin-top: 2rem;">
+      <div style="background: #fff; padding: 0.75rem;">
+        <img src="image_2026-05-29_09-55-09.png" alt="Baseline system UI panel" style="width:100%; border-radius:4px; display:block;" />
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">Baseline system UI panel example</p>
+      </div>
+      <div style="background: #fff; padding: 0.75rem;">
+        <img src="demo_panel_clear (1).png" alt="Adaptive system UI panel" style="width:100%; border-radius:4px; display:block;" />
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">Adaptive system UI panel example</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e0ddd6; border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+      <div style="background: #fff; padding: 0.75rem;">
+        <img src="image_2026-05-29_09-56-28.png" alt="Simple task objects" style="width:100%; aspect-ratio: 4/3; object-fit: cover; border-radius:4px; display:block;" />
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">Simple task objects example</p>
+      </div>
+      <div style="background: #fff; padding: 0.75rem;">
+        <img src="ChatGPT Image May 28, 2026, 12_06_26 PM (1).png" alt="Chem-lab task objects" style="width:100%; aspect-ratio: 4/3; object-fit: cover; border-radius:4px; display:block;" />
+        <p style="font-family:'DM Mono',monospace; font-size:0.9rem; color:#b8b5ae; text-align:center; margin: 0.5rem 0 0;">Chem-lab task objects example</p>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+
+
+
+<!-- ════════════════ EVALUATION ════════════════ -->
+<div class="tab-panel" id="tab-evaluation">
+
+  <section>
+    <h2>Technical Evaluation</h2>
+    <p>We evaluated the technical performance of the system across three dimensions: reliability of procedural interpretation, runtime responsiveness, and validity of the estimated difficulty signal. Metrics were computed over all recorded study sessions.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Mean</th>
+          <th>SD</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Semantic action recognition F1</td>
+          <td>0.97</td>
+          <td>0.03</td>
+        </tr>
+        <tr>
+          <td>Outcome classification F1</td>
+          <td>0.96</td>
+          <td>0.05</td>
+        </tr>
+        <tr>
+          <td>Step-completion accuracy</td>
+          <td>1.00</td>
+          <td>0.00</td>
+        </tr>
+        <tr>
+          <td>Action-to-classification latency</td>
+          <td>58 ms</td>
+          <td>12 ms</td>
+        </tr>
+        <tr>
+          <td>Error-to-feedback latency</td>
+          <td>77 ms</td>
+          <td>65 ms</td>
+        </tr>
+        <tr>
+          <td>Voice query-to-response latency</td>
+          <td>4.8 s</td>
+          <td>0.2 s</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.8rem; color:#9a9890; font-weight:300; font-style:italic;">Note. F1 and accuracy values are reported as unitless proportions. Latency values are reported in milliseconds (ms) or seconds (s), depending on the pipeline stage.</p>
+    </section>
+
+  <section>
+    <h2>Validity of the Difficulty Signal</h2>
+    <p>We examined whether the runtime difficulty estimate produced by the user-state model is behaviorally meaningful — specifically, whether it rises before procedural deviations during actual task execution. Normalized difficulty was consistently higher before deviations than during stable execution (mean 0.063 vs. −0.002; Δ = 0.065), confirmed by both a Wilcoxon signed-rank test (W = 204, p &lt; .001) and a paired t-test (t(19) = 4.58, p &lt; .001, d&#x1D467; = 1.02, large effect). These findings support the use of the difficulty signal as a runtime cue for adaptive guidance.</p>
+    <img src="graphs\p_struggling_paired_plot.png" alt="Closed-loop system pipeline" class="framework-img" style="cursor:zoom-in; max-width: 50%; display:block; margin: 0 auto;" onclick="openLightbox('graphs/system_pipeline.jpg')" />
+    <p class="img-caption" style="margin-top: 1rem;">Fig. 5 — Validity of the Difficulty Signal</p>   
+  </section>
+
+  <section>
+  <h2>Results</h2>
+
+  <!-- Error rate + Struggling rate side by side -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #e0ddd6; border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem;">
+    <div style="background: #fff; padding: 1rem;">
+      <img src="graphs/error_interaction_plot.png" alt="Error rate interaction plot" style="width:80%; border-radius:4px; display:block; cursor:zoom-in;" onclick="openLightbox('graphs/error_interaction_plot.png')" />
+      <p style="font-family:'DM Mono',monospace; font-size:0.8rem; color:#b8b5ae; text-align:center; margin: 0.6rem 0 0;">Fig. 6 — Mean error rate by condition</p>
+    </div>
+    <div style="background: #fff; padding: 1rem;">
+      <img src="graphs/struggling_interaction_plot.png" alt="Struggling rate interaction plot" style="width:80%; border-radius:4px; display:block; cursor:zoom-in;" onclick="openLightbox('graphs/struggling_interaction_plot.png')" />
+      <p style="font-family:'DM Mono',monospace; font-size:0.8rem; color:#b8b5ae; text-align:center; margin: 0.6rem 0 0;">Fig. 7 — Mean struggling rate by condition</p>
+    </div>
+  </div>
+  <p>Both error rate and struggling rate showed a significant System × Task interaction (p &lt; .001). Adaptive guidance had no significant effect during the simple task, but substantially reduced both measures during the complex chemistry task.</p>
+
+  <!-- Recovery latency -->
+  <div style="border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem; margin-top: 2rem;">
+    <div style="background: #fff; padding: 1rem;">
+      <img src="graphs/recovery_latency_mwu_plot.png" alt="Recovery latency boxplot" style="width:40%; display:block; margin: 0 auto; cursor:zoom-in;" onclick="openLightbox('graphs/recovery_latency_mwu_plot.png')" />
+      <p style="font-family:'DM Mono',monospace; font-size:0.8rem; color:#b8b5ae; text-align:center; margin: 0.6rem 0 0;">Fig. 8 — Recovery latency following procedural deviations (chemistry task)</p>
+    </div>
+  </div>
+  <p>Participants recovered significantly faster under adaptive guidance (mean 56.5 s) than baseline (mean 132.2 s). Mann–Whitney U = 5.0, p = .001, Cliff's δ = −0.88 (large effect). 74.6% of proactive interventions were immediately followed by successful return to the intended workflow.</p>
+
+  <!-- NASA-TLX -->
+  <div style="border: 1px solid #e0ddd6; border-radius: 6px; overflow: hidden; margin-bottom: 0.5rem; margin-top: 2rem;">
+    <div style="background: #fff; padding: 1rem;">
+      <img src="graphs/nasa-tlx.png" alt="NASA-TLX subscale scores" style="width:100%; border-radius:4px; display:block; cursor:zoom-in;" onclick="openLightbox('graphs/nasa-tlx.png')" />
+      <p style="font-family:'DM Mono',monospace; font-size:0.8rem; color:#b8b5ae; text-align:center; margin: 0.6rem 0 0;">Fig. 9 — NASA-TLX subscale scores across conditions</p>
+    </div>
+  </div>
+  <p>Subjective workload (NASA-TLX) and guidance quality (GQI) both showed a significant System × Task interaction (p &lt; .001). The largest reductions under adaptive guidance occurred in effort and frustration subscales during the complex task.</p>
+
+</section>
+
+</div>
+
+<!-- ════════════════ MATERIALS ════════════════ -->
+<div class="tab-panel" id="tab-materials">
+
+  <section>
+    <h2>Research Outputs</h2>
+    <ul class="materials-list">
+      <li>
+  <span class="mat-label">Thesis</span>
+  <a class="mat-link" href="papers\2026_MasterThesis_ALSU.pdf" download target="_blank">PDF</a>
+</li>
+      <li>
+        <span class="mat-label">Code</span>
+        <span class="mat-note">GitHub — to be added</span>
+      </li>
+      <li>
+        <span class="mat-label">Demo</span>
+        <a class="mat-link" href="https://www.youtube.com/watch?v=A0HYoeMklSk" target="_blank">YouTube</a>
+      </li>
+      <li>
+        <span class="mat-label">Data</span>
+        <span class="mat-note">Anonymized sample logs — to be added</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Note on Availability</h2>
+    <p>The full Unity project and complete testing dataset are not publicly uploaded due to file size, dependency complexity, and participant privacy considerations. Instead, selected source code, representative configuration files, anonymized sample logs, and aggregated evaluation results are provided.</p>
+  </section>
+
+</div>
+
+<!-- ════════════════ REFERENCES ════════════════ -->
+<div class="tab-panel" id="tab-references">
+
+  <section>
+    <h2>Key References</h2>
+    <ul class="ref-list">
+      <li>
+        <span class="ref-num">[1]</span>
+        Wang et al. HoloAssist: An Egocentric Human Interaction Dataset for Interactive AI Assistants in the Real World. <em>ICCV 2023.</em>
+      </li>
+      <li>
+        <span class="ref-num">[2]</span>
+        Yang et al. AMMA: Adaptive Multimodal Assistants Through Automated State Tracking and User Model-Directed Guidance Planning. <em>IEEE VR 2024.</em>
+      </li>
+      <li>
+        <span class="ref-num">[3]</span>
+        Bohus et al. SIGMA: An Open-Source Interactive System for Mixed-Reality Task Assistance Research. <em>IEEE VRW 2024.</em>
+      </li>
+      <li>
+        <span class="ref-num">[4]</span>
+        Stiber et al. "Uh, This One?": Leveraging Behavioral Signals for Detecting Confusion during Physical Tasks. <em>ICMI 2024.</em>
+      </li>
+      <li>
+        <span class="ref-num">[5]</span>
+        Zhang et al. ByteTrack: Multi-Object Tracking by Associating Every Detection Box. <em>ECCV 2022.</em>
+      </li>
+      <li>
+        <span class="ref-num">[6]</span>
+        Dangberg et al. HoloLens-YOLO-Object-Detection. <em>GitHub, 2024.</em>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Related Links</h2>
+    <ul class="materials-list">
+      <li>
+        <span class="mat-label">HoloAssist</span>
+        <a class="mat-link" href="https://holoassist.github.io/" target="_blank">holoassist.github.io</a>
+        <span class="mat-note">Egocentric dataset used for BiGRU pretraining</span>
+      </li>
+      <li>
+        <span class="mat-label">YOLO Pipeline</span>
+        <a class="mat-link" href="https://github.com/dangberg/HoloLens-YOLO-Object-Detection" target="_blank">github.com/dangberg</a>
+        <span class="mat-note">HoloLens object detection pipeline we adapted and extended</span>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- ════════════════ PUBLICATIONS ════════════════ -->
+<div class="tab-panel" id="tab-publications">
+
+  <section style="margin-bottom: 0;">
+    <h2 style="color:#c08a52;">Publications</h2>
+
+    <ul class="pub-list">
+
+      <li class="pub-item">
+        <span class="pub-status review">Under Review</span>
+        <span class="pub-venue">ACM VRST 2026</span>
+        <div class="pub-title">Design and Implementation of a Multimodal Adaptive Guidance System for Extended Reality</div>
+        <div class="pub-meta">A. Raianova and M. Lee · Full Conference Paper</div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-status accepted">Accepted &amp; Presented</span>
+        <span class="pub-venue">IEEE VRW 2026</span>
+        <div class="pub-title">Towards Multimodal User State-Aware Adaptive Guidance in MR</div>
+        <div class="pub-meta">A. Raianova and M. Lee, 2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW), Daegu, Korea, Republic of, 2026, pp. 1195–1196, doi: 10.1109/VRW70859.2026.00272</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/VRW70859.2026.00272" target="_blank">DOI</a>
+          <a href="https://www.youtube.com/watch?v=A0HYoeMklSk" target="_blank">Demo video</a>
+        </div>
+      </li>
+
+      <li class="pub-item">
+        <span class="pub-status accepted">Accepted &amp; Presented</span>
+        <span class="pub-venue">ISMAR-Adjunct 2025</span>
+        <div class="pub-title">Adaptive Learning in Extended Reality: A Survey on Multimodal Interaction and AI-Driven Personalization</div>
+        <div class="pub-meta">A. Raianova and M. Lee, 2025 IEEE International Symposium on Mixed and Augmented Reality Adjunct (ISMAR-Adjunct), Daejeon, Korea, Republic of, 2025, pp. 205–210, doi: 10.1109/ISMAR-Adjunct68609.2025.00046</div>
+        <div class="pub-links">
+          <a href="https://doi.org/10.1109/ISMAR-Adjunct68609.2025.00046" target="_blank">DOI</a>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+</div>
+
+
+
+<!-- ── Tab switching script ── -->
+<script>
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const aboutBtn = document.querySelector('.about-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  function clearAll() {
+    tabButtons.forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    aboutBtn.classList.remove('active');
+    panels.forEach(p => p.classList.remove('active'));
+  }
+
+  // Regular tab buttons
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      clearAll();
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // About Me button
+  aboutBtn.addEventListener('click', () => {
+    clearAll();
+    aboutBtn.classList.add('active');
+    document.getElementById('tab-about').classList.add('active');
+  });
+
+  function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').style.display = 'flex';
+}
+function showGoal(btn, id) {
+  document.querySelectorAll('.goal-pill').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.goal-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+
+</script>
+<!-- Lightbox — universal -->
+<div id="lightbox" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; cursor:zoom-out;" onclick="this.style.display='none'">
+  <img id="lightbox-img" src="" style="max-width:95vw; max-height:95vh; border-radius:6px;" onclick="event.stopPropagation()" />
+</div>
+</body>
+</html>
